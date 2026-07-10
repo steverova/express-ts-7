@@ -8,7 +8,7 @@ export const validate = (schema: ZodType) => {
 				body: req.body,
 				query: req.query,
 				params: req.params,
-				cookies: req.cookies,
+				cookies: req.cookies
 			})
 
 			return next()
@@ -16,7 +16,7 @@ export const validate = (schema: ZodType) => {
 			if (error instanceof ZodError) {
 				const validationErrors = error.issues.map((issue) => ({
 					key: issue.path.join('.') || 'unknown',
-					message: issue.message,
+					message: issue.message
 				}))
 
 				return res.status(400).json(validationErrors)

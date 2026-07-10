@@ -1,9 +1,13 @@
-import { Router } from "express";
-import { validate } from "#middlewares/validate-zod";
-import { productsController } from "./products.controller";
-import { createProductSchema, productParamSchema, productQuerySchema } from "./products.schema";
+import { Router } from 'express'
+import { validate } from '#middlewares/validate-zod'
+import { productsController } from './products.controller'
+import {
+	createProductSchema,
+	productParamSchema,
+	productQuerySchema
+} from './products.schema'
 
-export const productsRouter: Router = Router();
+export const productsRouter: Router = Router()
 
 /**
  * @openapi
@@ -47,7 +51,7 @@ export const productsRouter: Router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-productsRouter.get("/", validate(productQuerySchema), productsController.getAll);
+productsRouter.get('/', validate(productQuerySchema), productsController.getAll)
 
 /**
  * @openapi
@@ -78,7 +82,11 @@ productsRouter.get("/", validate(productQuerySchema), productsController.getAll)
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-productsRouter.get("/:id", validate(productParamSchema), productsController.getById);
+productsRouter.get(
+	'/:id',
+	validate(productParamSchema),
+	productsController.getById
+)
 
 /**
  * @openapi
@@ -107,4 +115,8 @@ productsRouter.get("/:id", validate(productParamSchema), productsController.getB
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-productsRouter.post("/", validate(createProductSchema), productsController.create);
+productsRouter.post(
+	'/',
+	validate(createProductSchema),
+	productsController.create
+)

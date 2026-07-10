@@ -2,15 +2,15 @@ declare global {
 	namespace Express {
 		interface Request {
 			user?: {
-				id: string;
-				role?: string;
-			};
+				id: string
+				role?: string
+			}
 			session?: {
-				successToken: string;
-			},
-			sessionChecked?: boolean;
+				successToken: string
+			}
+			sessionChecked?: boolean
 		}
 	}
 }
 
-export {};
+export {}

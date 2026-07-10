@@ -1,12 +1,12 @@
 {
-  "extends": "@tsconfig/node24/tsconfig.json",
-  "compilerOptions": {
-    "module": "nodenext",
-    "target": "esnext",
-    "lib": ["esnext"],
-    "types": ["node"],
-    "strict": true,
-    "skipLibCheck": true
-  },
-  "include": ["esbuild.config.ts"]
+	"extends": "@tsconfig/node24/tsconfig.json",
+	"compilerOptions": {
+		"module": "nodenext",
+		"target": "esnext",
+		"lib": ["esnext"],
+		"types": ["node"],
+		"strict": true,
+		"skipLibCheck": true
+	},
+	"include": ["esbuild.config.ts"]
 }
