@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch-path=src src/index.ts",
+    "dev": "node --watch --strip-types src/index.ts",
     "typecheck": "tsc --noEmit",
     "build": "pnpm run typecheck && node --strip-types esbuild.config.ts",
     "preview": "node dist/index.js"
