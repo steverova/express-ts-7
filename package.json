@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "node --watch --strip-types src/index.ts",
+    "dev": "node --strip-types esbuild.config.ts --watch & node --watch dist/index.js",
     "typecheck": "tsc --noEmit",
     "build": "pnpm run typecheck && node --strip-types esbuild.config.ts",
     "preview": "node dist/index.js"
@@ -12,7 +12,8 @@
   "imports": {
     "#lib/*": "./src/lib/*.ts",
     "#config/*": "./src/config/*.ts",
-    "#middlewares/*": "./src/middlewares/*.ts"
+    "#middlewares/*": "./src/middlewares/*.ts",
+    "#features/*": "./src/features/*"
   },
   "repository": {
     "type": "git",

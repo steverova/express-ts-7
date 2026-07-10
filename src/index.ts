@@ -8,6 +8,7 @@ import { env } from "#config/env";
 import { corsConfig } from "#middlewares/cors-config";
 import { errorHandler } from "#middlewares/error-handler";
 import { notFoundHandler } from "#middlewares/not-found";
+import { router } from "./router/index";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get("/", (_: Request, res: Response) => {
   res.send("Hello World!");
   console.log("Response sent");
 });
+
+app.use("/api", router);
 
 app.use(notFoundHandler);
 app.use(errorHandler);
