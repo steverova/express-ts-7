@@ -58,7 +58,7 @@ export const authService = {
 			expiresAt,
 		})
 
-		return { accessToken, refreshToken: refreshTokenRaw, expiresAt }
+		return { accessToken, refreshToken: refreshTokenRaw, expiresAt, userId: user.id }
 	},
 
 	async refresh(refreshTokenRaw: string): Promise<AuthTokens> {
@@ -107,7 +107,7 @@ export const authService = {
 			role: user.role,
 		})
 
-		return { accessToken, refreshToken: newRefreshRaw, expiresAt }
+		return { accessToken, refreshToken: newRefreshRaw, expiresAt, userId: user.id }
 	},
 
 	logoutAll(userId: number) {

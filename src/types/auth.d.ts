@@ -11,6 +11,7 @@ export interface AuthTokens {
 	accessToken: string
 	refreshToken: string
 	expiresAt: Date
+	userId: number
 }
 
 export interface LoginParams {

@@ -16,6 +16,8 @@ export const authController = {
 				ipAddress
 			})
 
+			const user = authService.getMe(result.userId)
+
 			res.cookie(AUTH.REFRESH_COOKIE, result.refreshToken, {
 				httpOnly: true,
 				secure: process.env.NODE_ENV === 'production',
@@ -25,7 +27,7 @@ export const authController = {
 			})
 
 			res.setHeader('Authorization', `Bearer ${result.accessToken}`)
-			res.status(204).end()
+			res.json({ data: user })
 		} catch (error) {
 			next(error)
 		}
