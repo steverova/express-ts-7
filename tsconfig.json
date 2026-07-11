@@ -50,5 +50,5 @@
 		"skipLibCheck": true
 	},
 	"include": ["**/*.ts"],
-	"exclude": ["dist", "node_modules", "esbuild.config.ts"]
+	"exclude": ["dist", "node_modules", "esbuild.config.ts", "drizzle.config.*.ts"]
 }

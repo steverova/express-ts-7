@@ -1,0 +1,9 @@
+CREATE TABLE users (
+  id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  email_verified_at DATETIME NULL,
+  role VARCHAR(50) NOT NULL DEFAULT 'user',
+  status ENUM('active', 'suspended', 'deleted') DEFAULT 'active',
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
