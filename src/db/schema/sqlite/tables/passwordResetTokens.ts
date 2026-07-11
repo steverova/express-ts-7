@@ -6,10 +6,8 @@ import {
 import { users } from './users'
 
 export const passwordResetTokens = sqliteTable('password_reset_tokens', {
-	id: text('id')
-		.primaryKey()
-		.$defaultFn(() => crypto.randomUUID()),
-	userId: text('user_id')
+	id: integer('id').primaryKey({ autoIncrement: true }),
+	userId: integer('user_id')
 		.notNull()
 		.references(() => users.id, { onDelete: 'cascade' }),
 	tokenHash: text('token_hash').notNull(),

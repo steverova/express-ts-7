@@ -1,9 +1,9 @@
 CREATE TABLE refresh_tokens (
-  id CHAR(36) PRIMARY KEY DEFAULT (UUID()),
-  user_id CHAR(36) NOT NULL,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
   token_hash CHAR(64) NOT NULL,
-  family_id CHAR(36) NOT NULL,
-  user_agent VARCHAR(255) NULL,   -- útil para "dispositivos activos"
+  family_id VARCHAR(36) NOT NULL,
+  user_agent VARCHAR(255) NULL,
   ip_address VARCHAR(45) NULL,
   revoked_at DATETIME NULL,
   expires_at DATETIME NOT NULL,

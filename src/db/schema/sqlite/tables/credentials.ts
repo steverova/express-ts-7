@@ -10,7 +10,7 @@ export const credentials = sqliteTable(
 	'credentials',
 	{
 		id: integer('id').primaryKey({ autoIncrement: true }),
-		userId: text('user_id')
+		userId: integer('user_id')
 			.notNull()
 			.references(() => users.id, { onDelete: 'cascade' }),
 		provider: text('provider', {
