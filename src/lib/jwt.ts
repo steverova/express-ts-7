@@ -1,10 +1,13 @@
-import { SignJWT, jwtVerify } from 'jose'
+import { jwtVerify, SignJWT } from 'jose'
 import { env } from '#config/env'
 import { AUTH } from '#features/auth/auth.constants'
 
 const secret = new TextEncoder().encode(env.JWT_SECRET)
 
-export function signAccessToken(user: { id: number; role: string }): Promise<string> {
+export function signAccessToken(user: {
+	id: number
+	role: string
+}): Promise<string> {
 	return new SignJWT({ sub: String(user.id), role: user.role })
 		.setProtectedHeader({ alg: 'HS256' })
 		.setIssuedAt()
