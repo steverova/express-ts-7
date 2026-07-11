@@ -10,7 +10,7 @@ El proyecto soporta dos drivers de base de datos, controlados por la variable `D
 - `mysql` — base de datos MySQL/compatibles
 
 Cada driver tiene su propio archivo de configuración:
-- `drizzle.config.sqllite.ts`
+- `drizzle.config.sqlite.ts`
 - `drizzle.config.mysql.ts`
 
 ---
