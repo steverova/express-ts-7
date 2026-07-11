@@ -1,36 +1,41 @@
 import 'dotenv/config'
 import { z } from 'zod'
 
-const baseSchema = z.object({
-	PORT: z.coerce.number().default(3000),
-	NODE_ENV: z
-		.enum(['development', 'production', 'test'])
-		.default('development'),
-	FRONTEND_URL: z.url(),
+const envSchema = z
+	.object({
+		PORT: z.coerce.number().default(3000),
+		NODE_ENV: z
+			.enum(['development', 'production', 'test'])
+			.default('development'),
+		FRONTEND_URL: z.url(),
 
-	// --- JWT ---
-	JWT_SECRET: z
-		.string()
-		.min(32, 'JWT_SECRET debe tener al menos 32 caracteres')
-})
+		// --- Database ---
+		DB_DRIVER: z.enum(['sqlite', 'mysql']).default('sqlite'),
 
-const sqliteSchema = baseSchema.extend({
-	DB_DRIVER: z.literal('sqlite'),
-	SQLITE_PATH: z.string().default('./local.db'),
-})
+		// SQLite
+		SQLITE_PATH: z.string().default('./local.db'),
 
-const mysqlSchema = baseSchema.extend({
-	DB_DRIVER: z.literal('mysql'),
-	DB_HOST: z.string(),
-	DB_USER: z.string(),
-	DB_PASSWORD: z.string(),
-	DB_NAME: z.string(),
-})
+		// MySQL
+		DB_HOST: z.string().optional(),
+		DB_USER: z.string().optional(),
+		DB_PASSWORD: z.string().optional(),
+		DB_NAME: z.string().optional(),
 
-const envSchema = z.discriminatedUnion('DB_DRIVER', [
-	sqliteSchema.extend({ DB_HOST: z.undefined(), DB_USER: z.undefined(), DB_PASSWORD: z.undefined(), DB_NAME: z.undefined() }),
-	mysqlSchema.extend({ SQLITE_PATH: z.string().default('./local.db') }),
-])
+		// --- JWT ---
+		JWT_SECRET: z
+			.string()
+			.min(32, 'JWT_SECRET debe tener al menos 32 caracteres')
+	})
+	.refine(
+		(env) =>
+			env.DB_DRIVER !== 'mysql' ||
+			(env.DB_HOST && env.DB_USER && env.DB_PASSWORD && env.DB_NAME),
+		{
+			message:
+				'DB_HOST, DB_USER, DB_PASSWORD y DB_NAME son requeridos cuando DB_DRIVER=mysql',
+			path: ['DB_DRIVER']
+		}
+	)
 
 const result = envSchema.safeParse(process.env)
 

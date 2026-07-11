@@ -16,7 +16,8 @@
 		"db:generate:sqlite": "drizzle-kit generate --config=drizzle.config.sqlite.ts",
 		"db:push:sqlite": "drizzle-kit push --config=drizzle.config.sqlite.ts",
 		"db:migrate:sqlite": "drizzle-kit migrate --config=drizzle.config.sqlite.ts",
-		"db:drop:sqlite": "drizzle-kit drop --config=drizzle.config.sqlite.ts"
+		"db:drop:sqlite": "drizzle-kit drop --config=drizzle.config.sqlite.ts",
+		"db:seed": "npx tsx src/db/seed.ts"
 	},
 	"imports": {
 		"#lib/*": "./src/lib/*.ts",

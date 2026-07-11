@@ -15,10 +15,10 @@ export async function createDb() {
   const schema = await import('./schema/mysql');
 
   const pool = mysql.createPool({
-    host: env.DB_HOST,
-    user: env.DB_USER,
-    password: env.DB_PASSWORD,
-    database: env.DB_NAME,
+    host: env.DB_HOST!,
+    user: env.DB_USER!,
+    password: env.DB_PASSWORD!,
+    database: env.DB_NAME!,
     connectionLimit: 5,
   });
 

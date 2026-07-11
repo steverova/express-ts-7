@@ -1,13 +1,12 @@
-import {
-	integer,
-	sqliteTable,
-	text
-} from 'drizzle-orm/sqlite-core'
+import { randomBytes } from 'node:crypto'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 export const users = sqliteTable('users', {
-	id: text('id')
-		.primaryKey()
-		.$defaultFn(() => crypto.randomUUID()),
+	id: integer('id').primaryKey({ autoIncrement: true }),
+	publicId: text('public_id')
+		.unique()
+		.notNull()
+		.$defaultFn(() => randomBytes(16).toString('base64url').slice(0, 21)),
 	email: text('email').unique().notNull(),
 	emailVerifiedAt: integer('email_verified_at', { mode: 'timestamp' }),
 	role: text('role').notNull().default('user'),
