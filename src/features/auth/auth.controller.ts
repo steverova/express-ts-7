@@ -134,11 +134,32 @@ export const authController = {
 		res.status(501).json({ status: 'error', message: 'Not implemented' })
 	},
 
-	async sessions(_req: Request, res: Response) {
-		res.status(501).json({ status: 'error', message: 'Not implemented' })
+	async sessions(req: Request, res: Response, next: NextFunction) {
+		try {
+			if (!req.user) {
+				res.status(401).json({ status: 'error', message: 'No autenticado' })
+				return
+			}
+
+			const sessions = authService.sessions(req.user.id)
+			res.json({ data: sessions })
+		} catch (error) {
+			next(error)
+		}
 	},
 
-	async revokeSession(_req: Request, res: Response) {
-		res.status(501).json({ status: 'error', message: 'Not implemented' })
+	async revokeSession(req: Request, res: Response, next: NextFunction) {
+		try {
+			if (!req.user) {
+				res.status(401).json({ status: 'error', message: 'No autenticado' })
+				return
+			}
+
+			const sessionId = Number(req.params.id)
+			authService.revokeSession(req.user.id, sessionId)
+			res.json({ status: 'ok', message: 'Sesión revocada' })
+		} catch (error) {
+			next(error)
+		}
 	}
 }

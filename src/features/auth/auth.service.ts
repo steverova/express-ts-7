@@ -44,10 +44,19 @@ export const authService = {
 			role: user.role,
 		})
 
+		const expiresAt = new Date(Date.now() + AUTH.REFRESH_TOKEN_TTL_MS)
+
+		// Create session
+		const sessionId = authRepository.createSession({
+			userId: user.id,
+			userAgent: userAgent ?? null,
+			ipAddress: ipAddress ?? null,
+			expiresAt,
+		})
+
 		const refreshTokenRaw = randomUUID()
 		const tokenHash = hashToken(refreshTokenRaw)
 		const familyId = randomUUID()
-		const expiresAt = new Date(Date.now() + AUTH.REFRESH_TOKEN_TTL_MS)
 
 		authRepository.createRefreshToken({
 			userId: user.id,
@@ -87,7 +96,7 @@ export const authService = {
 			throw new AppError('Usuario no válido', StatusCodes.UNAUTHORIZED)
 		}
 
-		authRepository.revokeRefreshToken(token.id)
+		authRepository.deleteRefreshToken(token.id)
 
 		const newRefreshRaw = randomUUID()
 		const newHash = hashToken(newRefreshRaw)
@@ -112,6 +121,7 @@ export const authService = {
 
 	logoutAll(userId: number) {
 		authRepository.revokeAllUserRefreshTokens(userId)
+		authRepository.deleteAllUserSessions(userId)
 	},
 
 	getMe(userId: number) {
@@ -128,5 +138,19 @@ export const authService = {
 			status: user.status,
 			createdAt: user.createdAt,
 		}
+	},
+
+	sessions(userId: number) {
+		return authRepository.findActiveSessionsByUserId(userId)
+	},
+
+	revokeSession(userId: number, sessionId: number) {
+		const session = authRepository.findSessionById(sessionId)
+
+		if (!session || session.userId !== userId) {
+			throw new AppError('Sesión no encontrada', StatusCodes.NOT_FOUND)
+		}
+
+		authRepository.deleteSession(sessionId)
 	},
 }

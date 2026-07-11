@@ -38,6 +38,7 @@
 	},
 	"homepage": "https://github.com/steverova/express-ts-7#readme",
 	"dependencies": {
+		"@types/nodemailer": "^8.0.1",
 		"better-sqlite3": "^12.11.1",
 		"compression": "^1.8.1",
 		"cookie-parser": "^1.4.7",
@@ -51,6 +52,7 @@
 		"jose": "^6.2.3",
 		"morgan": "^1.11.0",
 		"mysql2": "^3.22.6",
+		"nodemailer": "^9.0.3",
 		"swagger-jsdoc": "^6.3.0",
 		"swagger-ui-express": "^5.0.1",
 		"winston": "^3.19.0",
