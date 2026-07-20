@@ -31,10 +31,6 @@ app.get('/', (_: Request, res: Response) => {
 	console.log('Response sent')
 })
 
-// CREATE #middlewares error
-
-
-
 app.use('/api', router)
 
 app.use(notFoundHandler)
