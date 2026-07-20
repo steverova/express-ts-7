@@ -27,9 +27,13 @@ const swaggerSpec = swaggerJsdoc(swaggerConfig)
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 app.get('/', (_: Request, res: Response) => {
-	res.send('Hello World!')
+	res.send('Hello World FROM EXPRESS ZZZZZ!')
 	console.log('Response sent')
 })
+
+// CREATE #middlewares error
+
+
 
 app.use('/api', router)
 
